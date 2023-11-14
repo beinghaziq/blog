@@ -23,4 +23,3 @@ def create(blog: BlogBase, db: Session = Depends(get_db)):
 def show(id, db: Session = Depends(get_db)):
     blog = db.query(Blog).filter(Blog.id == id).first()
     return blog
-    
