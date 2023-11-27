@@ -1,7 +1,6 @@
 # app/models/blog.py
 from sqlalchemy import Column, Integer, String
 from database import Base
-# from pydantic import BaseModel
 
 class Blog(Base):
 	__tablename__ = 'blogs'
