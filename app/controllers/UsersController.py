@@ -1,5 +1,4 @@
-from typing import List
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, status
 from app.pydantic_objects.user import User as UserBase
 from app.controllers.BaseController import Session, get_db, Depends
 from app.models.user import User
