@@ -8,6 +8,7 @@ from app.services.text_transformer import TextTransformer
 
 router = APIRouter()
 
+# Info: tags=['blog'] can be written here for proper documentation
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model=UserSerializer)
 def create(user: UserBase, db: Session = Depends(get_db)):
   new_user = User(name = user.name, email = user.email, password = TextTransformer(user.password).encrypt())
