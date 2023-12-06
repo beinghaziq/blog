@@ -1,5 +1,5 @@
 # app/blog.py
-from typing import List
+from typing import List # Info: Typing is by-default included in python 3.10+
 from fastapi import APIRouter, status, HTTPException
 from app.pydantic_objects.blog import Blog as BlogBase
 from app.controllers.BaseController import Session, get_db, Depends
