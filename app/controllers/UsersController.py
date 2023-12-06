@@ -1,3 +1,4 @@
+from http.client import HTTPException
 from fastapi import APIRouter, status
 from app.pydantic_objects.user import User as UserBase
 from app.controllers.BaseController import Session, get_db, Depends
@@ -7,6 +8,7 @@ from app.services.text_transformer import TextTransformer
 
 router = APIRouter()
 
+# Info: tags=['blog'] can be written here for proper documentation
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model=UserSerializer)
 def create(user: UserBase, db: Session = Depends(get_db)):
   new_user = User(name = user.name, email = user.email, password = TextTransformer(user.password).encrypt())
@@ -14,3 +16,11 @@ def create(user: UserBase, db: Session = Depends(get_db)):
   db.commit()
   db.refresh(new_user)
   return new_user
+
+@router.get('/{id}', status_code = status.HTTP_200_OK, response_model=UserSerializer)
+def show(id, db: Session = Depends(get_db)):
+  user = db.query(User).filter(User.id == id).first()
+
+  if not user:
+    raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f"User with {id} not found")
+  return user
