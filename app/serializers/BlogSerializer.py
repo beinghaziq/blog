@@ -1,13 +1,17 @@
 # import inspect
+from typing import Optional
 from app.serializers.UserSerializer import UserSerializer
 from pydantic import BaseModel
 
 
 
 class BlogSerializer(BaseModel):
-    title: str
-    body: str
-    creator: UserSerializer
+  title: str
+  body: str
+  creator: UserSerializer
+	
+  class Config():
+    orm_mode = True
 
 # Info: Did some meta programming to pass custom methods along with model attributes.
 # custom methods should start with property_ and it will be called dynamically 
