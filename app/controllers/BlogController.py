@@ -4,14 +4,14 @@ from fastapi import APIRouter, status, HTTPException
 from app.pydantic_objects.blog import Blog as BlogBase
 from app.controllers.BaseController import Session, get_db, Depends
 from app.models.blog import Blog
+import app.repositories.blog as BlogRepo
 from app.serializers.BlogSerializer import BlogSerializer
 
 router = APIRouter()
 
 @router.get('/', response_model = List[BlogSerializer])
 def index(db: Session = Depends(get_db)):
-	blogs = db.query(Blog).all()
-	return blogs
+	return BlogRepo.all(db)
 	
 
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model = BlogSerializer)
