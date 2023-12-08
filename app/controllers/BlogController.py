@@ -16,7 +16,7 @@ def index(db: Session = Depends(get_db)):
 
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model = BlogSerializer)
 def create(blog: BlogBase, db: Session = Depends(get_db)):
-	new_blog = Blog(title = blog.title, body = blog.body)
+	new_blog = Blog(title = blog.title, body = blog.body, user_id = 1)
 	db.add(new_blog)
 	db.commit()
 	db.refresh(new_blog)
@@ -30,7 +30,6 @@ def show(id, db: Session = Depends(get_db)):
 	if not blog:
 		raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f"Blog with {id} not found")
 	return blog
-
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id: int, db: Session = Depends(get_db)):
