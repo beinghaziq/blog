@@ -18,7 +18,6 @@ def index(db: Session = Depends(get_db)):
 def create(blog: BlogBase, db: Session = Depends(get_db)):
 	return BlogRepo.create(blog, db)
 
-
 @router.get('/{id}', status_code = 200, response_model = BlogSerializer)
 def show(id, db: Session = Depends(get_db)):
 	return BlogRepo.find(id, db)
