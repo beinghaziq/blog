@@ -1,5 +1,5 @@
 # app/models/blog.py
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, func, DateTime
 from database import Base
 from sqlalchemy.orm import relationship
 
@@ -11,3 +11,5 @@ class Blog(Base):
 	body = Column(String)
 	user_id = Column(Integer, ForeignKey('users.id'))
 	creator = relationship('User', back_populates = 'blogs')
+	created_at = Column(DateTime(timezone=True), server_default=func.now())
+	updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

@@ -1,5 +1,5 @@
 # import inspect
-from typing import Optional
+from datetime import datetime
 from app.serializers.UserSerializer import UserSerializer
 from pydantic import BaseModel
 
@@ -9,7 +9,9 @@ class BlogSerializer(BaseModel):
   title: str
   body: str
   creator: UserSerializer
-	
+  created_at: datetime
+  updated_at: datetime
+
   class Config():
     orm_mode = True
 
