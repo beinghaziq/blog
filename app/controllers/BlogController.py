@@ -24,7 +24,7 @@ def show(id):
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id: int):
   blog_repo.destroy(id)
-  return { "message": "Blog deleted successfully" }
+  return { 'message': 'Blog deleted successfully' }
 
 @router.put('/{id}', status_code=status.HTTP_202_ACCEPTED, response_model = BlogSerializer)
 def update(id: int, blog: BlogBase):

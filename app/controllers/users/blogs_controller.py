@@ -7,7 +7,7 @@ from app.repositories.user_repository import UserRepository
 router = APIRouter()
 user_repo = UserRepository()
 
-@router.get('/{id}/blogs', response_model = List[BlogSerializer], response_model_exclude={'creator'})
+@router.get('/{id}/blogs', response_model = List[BlogSerializer])
 def index(id):
   user = user_repo.find(id)
   return user.blogs
