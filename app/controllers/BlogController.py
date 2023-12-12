@@ -14,7 +14,6 @@ def index():
 	
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model = BlogSerializer)
 def create(blog: BlogBase):
-	blog.user_id = 1
 	return blog_repo.create(blog)
 
 @router.get('/{id}', status_code = 200, response_model = BlogSerializer)
