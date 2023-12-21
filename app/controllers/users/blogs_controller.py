@@ -1,18 +1,13 @@
 # app/blog.py
 from typing import List # Info: Typing is by-default included in python 3.10+
-from fastapi import APIRouter, status, HTTPException
-from app.pydantic_objects.blog import Blog as BlogBase
-from app.models.user import User
-from app.controllers.BaseController import Session, get_db, Depends
-from app.models.blog import Blog
+from fastapi import APIRouter
 from app.serializers.BlogSerializer import BlogSerializer
+from app.repositories.user_repository import UserRepository
 
 router = APIRouter()
+user_repo = UserRepository()
 
-@router.get('/{id}/blogs', response_model = List[BlogSerializer], response_model_exclude={'creator'})
-def index(id, db: Session = Depends(get_db)):
-  user = db.query(User).filter(User.id == id).first()
-
-  if not user:
-    raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f"User with {id} not found")
+@router.get('/{id}/blogs', response_model = List[BlogSerializer])
+def index(id):
+  user = user_repo.find(id)
   return user.blogs
