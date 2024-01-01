@@ -38,3 +38,12 @@ class BaseRepository():
 		self.db.commit()
 		self.db.refresh(record_to_update)
 		return record_to_update
+	
+	def find_by(self, field_name, field_value):
+		record = self.db.query(self.model).filter(
+			getattr(self.model, field_name) == field_value).first()
+
+		if not record:
+			raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+			                    detail=f"{self.model.__name__} with {field_value} not found")
+		return record
