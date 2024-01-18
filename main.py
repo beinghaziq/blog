@@ -4,8 +4,11 @@ from app.controllers.UsersController import router as user_router
 from app.controllers.users.blogs_controller import router as user_blogs_router
 from app.controllers.sessions_controller import router as session_router
 from database import engine, Base
+from app.middlewares.cors import setup_cors
 
 app = FastAPI()
+
+setup_cors(app)
 
 Base.metadata.create_all(engine)
 app.include_router(blog_router, prefix='/blog', tags=['blog'])
