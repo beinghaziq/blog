@@ -10,8 +10,10 @@ router = APIRouter()
 blog_repo = BlogRepo()
 
 
-@router.get('/', response_model=List[BlogSerializer])
-def index(current_user: str = Depends(oauth2.get_current_user)):
+@router.get('', response_model=List[BlogSerializer])
+# def index(current_user: str = Depends(oauth2.get_current_user)):
+
+def index():
 	return blog_repo.all()
 	
 @router.post('/', status_code = status.HTTP_201_CREATED, response_model = BlogSerializer)
