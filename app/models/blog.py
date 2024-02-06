@@ -13,3 +13,7 @@ class Blog(Base):
 	creator = relationship('User', back_populates = 'blogs')
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+	def __repr__(self):
+		attributes = ', '.join(f"{key}={repr(value)}" for key, value in vars(self).items())
+		return f"{self.__class__.__name__}({attributes})"
